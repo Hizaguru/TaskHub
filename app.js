@@ -7,6 +7,7 @@ dotenv.config({ path: './.env'})
 
 const app = express();
 
+//More secure way. Data in .env file. 
 const database = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -27,15 +28,9 @@ database.connect( (err) => {
     }
 })
 
-app.get("/", (req, res) => {
-    //res.send("<h1>Home Page</h1>")
-    res.render("index");
-});
-
-app.get("/signup", (req, res) => {
-    //res.send("<h1>Home Page</h1>")
-    res.render("register");
-});
+//Define Routes
+app.use('/', require('./routes/pages'));
+app.use('/auth', require('./routes/auth'));
 
 app.listen(5000, () =>{
     console.log("Server started on Port 5000");
