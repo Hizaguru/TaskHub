@@ -7,7 +7,7 @@ dotenv.config({ path: './.env'})
 
 const app = express();
 
-//More secure way. Data in .env file. 
+//More secure way. Data in .env file.
 const database = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -17,6 +17,10 @@ const database = mysql.createConnection({
 
 const publicDirectory = path.join(__dirname,'./public');
 app.use(express.static(publicDirectory));
+
+app.use(express.urlencoded({extended: false}));
+//Parse JSON bodies
+app.use(express.json());
 
 app.set('view engine', 'hbs');
 
