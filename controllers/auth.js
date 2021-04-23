@@ -22,7 +22,7 @@ exports.login = async (req,res) => {
         database.query('SELECT * FROM users WHERE email = ?', [email], async (error, results) => {
             console.log(results);
             //If there's no result of the email or is the password is wrong
-            if(!results || !(await bcrypt.compare(password, results[0].password))){
+            if(results.length < 1 || !(await bcrypt.compare(password, results[0].password))){
                 res.status(401).render('login', {
                     message: 'No such an email or password'
                 })
