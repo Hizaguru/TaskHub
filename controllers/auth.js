@@ -86,7 +86,5 @@ exports.register = (req, res) =>{
                 });
             }
         })
-
     });
-
 }
